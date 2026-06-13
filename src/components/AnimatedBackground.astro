@@ -1,0 +1,153 @@
+---
+---
+
+<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+  <!-- Base gradient -->
+  <div class="absolute inset-0" style="background-color:#020617"></div>
+
+  <!-- Animated gradient blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- Particle canvas -->
+  <canvas id="particle-canvas" class="absolute inset-0 w-full h-full"></canvas>
+
+  <!-- Grid overlay -->
+  <div class="absolute inset-0 bg-grid opacity-40"></div>
+
+  <!-- Vignette -->
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,#020617_85%)]"></div>
+</div>
+
+<style>
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    will-change: transform;
+  }
+  .blob-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.4), transparent 70%);
+    top: -10%;
+    left: -5%;
+    animation: blobMove1 20s ease-in-out infinite;
+  }
+  .blob-2 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.3), transparent 70%);
+    bottom: -15%;
+    right: -10%;
+    animation: blobMove2 25s ease-in-out infinite;
+  }
+  .blob-3 {
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(29, 78, 216, 0.35), transparent 70%);
+    top: 40%;
+    left: 50%;
+    animation: blobMove3 22s ease-in-out infinite;
+  }
+
+  @keyframes blobMove1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(100px, 80px) scale(1.1); }
+    66% { transform: translate(-60px, 120px) scale(0.95); }
+  }
+  @keyframes blobMove2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-120px, -80px) scale(1.05); }
+    66% { transform: translate(80px, -100px) scale(1.1); }
+  }
+  @keyframes blobMove3 {
+    0%, 100% { transform: translate(-50%, 0) scale(1); }
+    50% { transform: translate(-50%, -100px) scale(1.15); }
+  }
+</style>
+
+<script>
+  const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement | null;
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let width = 0;
+    let height = 0;
+    let particles: { x: number; y: number; vx: number; vy: number; r: number }[] = [];
+    const mouse = { x: -1000, y: -1000 };
+
+    function resize() {
+      width = canvas!.width = window.innerWidth;
+      height = canvas!.height = window.innerHeight;
+      const count = Math.min(90, Math.floor((width * height) / 18000));
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 1.8 + 0.6,
+      }));
+    }
+
+    function draw() {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+
+        // Mouse interaction
+        const dx = p.x - mouse.x;
+        const dy = p.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          const force = (120 - dist) / 120;
+          p.x += (dx / dist) * force * 1.5;
+          p.y += (dy / dist) * force * 1.5;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(96, 165, 250, 0.6)';
+        ctx.fill();
+
+        // Connections
+        for (let j = i + 1; j < particles.length; j++) {
+          const q = particles[j];
+          const ddx = p.x - q.x;
+          const ddy = p.y - q.y;
+          const d = Math.sqrt(ddx * ddx + ddy * ddy);
+          if (d < 130) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            ctx.strokeStyle = `rgba(59, 130, 246, ${0.15 * (1 - d / 130)})`;
+            ctx.lineWidth = 0.6;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+    window.addEventListener('mouseout', () => {
+      mouse.x = -1000;
+      mouse.y = -1000;
+    });
+
+    resize();
+    draw();
+  }
+</script>

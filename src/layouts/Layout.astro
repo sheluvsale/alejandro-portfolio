@@ -1,0 +1,234 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Manolo | Developer & Creator",
+  description = "Portfolio profesional de Manuel Alejandro de Jesus Castillo Reyes. Desarrollador, creador de contenido y apasionado por la tecnologia.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="icon" type="image/x-icon" href="/images/logo-icono.ico" />
+    <link rel="shortcut icon" href="/images/logo-icono.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <title>{title}</title>
+    <style is:global>
+      html {
+        scroll-behavior: smooth;
+        background-color: #020617;
+      }
+      body {
+        font-family: 'Inter', system-ui, sans-serif;
+        background-color: transparent;
+        color: #f8fafc;
+        overflow-x: hidden;
+      }
+      ::selection { background-color: rgba(59,130,246,0.3); color: #fff; }
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #020617; }
+      ::-webkit-scrollbar-thumb { background: #1d4ed8; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(24px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+      @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      .anim-fade-up {
+        opacity: 0;
+        animation: fadeInUp 0.7s ease-out forwards;
+      }
+      .anim-fade {
+        opacity: 0;
+        animation: fadeIn 0.8s ease-out forwards;
+      }
+      .anim-float {
+        animation: float 4s ease-in-out infinite;
+      }
+      .d1 { animation-delay: 0.1s; }
+      .d2 { animation-delay: 0.2s; }
+      .d3 { animation-delay: 0.3s; }
+      .d4 { animation-delay: 0.4s; }
+      .d5 { animation-delay: 0.5s; }
+
+      .gradient-text {
+        background: linear-gradient(135deg, #3b82f6, #22d3ee, #3b82f6);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradientShift 3s ease infinite;
+      }
+      .glass {
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(59, 130, 246, 0.1);
+      }
+      .glass-nav {
+        background: rgba(15, 23, 42, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+      }
+      .bg-grid {
+        background-image:
+          linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+      }
+      .card-lift {
+        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+      }
+      .card-lift:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 50px rgba(59, 130, 246, 0.18);
+      }
+
+      .font-heading {
+        font-family: 'Space Grotesk', 'Inter', sans-serif;
+      }
+
+      .text-glow {
+        text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+      }
+
+      /* Shimmer button */
+      .btn-shimmer {
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-shimmer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+        transition: left 0.6s ease;
+      }
+      .btn-shimmer:hover::before {
+        left: 100%;
+      }
+
+      /* Gradient border card */
+      .gradient-border {
+        position: relative;
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .gradient-border::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(59,130,246,0.5), rgba(34,211,238,0.2), transparent);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+
+      /* Scroll progress */
+      #scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        width: 0%;
+        background: linear-gradient(90deg, #3b82f6, #22d3ee);
+        z-index: 60;
+        transition: width 0.1s ease-out;
+        box-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
+      }
+
+      /* Floating badge animation */
+      @keyframes pulseRing {
+        0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+      }
+      .pulse-ring {
+        animation: pulseRing 2s ease-out infinite;
+      }
+
+      /* Respect reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen antialiased">
+    <div id="scroll-progress"></div>
+    <slot />
+
+    <script>
+      import AOS from 'aos';
+
+      function initAOS() {
+        AOS.init({
+          duration: 800,
+          easing: 'ease-out-cubic',
+          once: true,
+          offset: 80,
+          delay: 0,
+        });
+      }
+
+      // Scroll progress bar
+      function updateProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        const bar = document.getElementById('scroll-progress');
+        if (bar) bar.style.width = pct + '%';
+      }
+
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      window.addEventListener('load', () => {
+        initAOS();
+        updateProgress();
+      });
+      // In case load already fired
+      if (document.readyState === 'complete') {
+        initAOS();
+        updateProgress();
+      }
+    </script>
+  </body>
+</html>
