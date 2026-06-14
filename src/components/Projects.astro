@@ -74,6 +74,66 @@
         Ver GitHub
       </a>
     </div>
+
+    <div class="mt-24" data-aos="fade-up">
+      <div class="text-center mb-16">
+        <h2 class="text-sm font-semibold text-blue-400 tracking-wider uppercase mb-3">Edición de videos</h2>
+        <h3 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
+          Proyectos <span class="gradient-text">audiovisuales</span>
+        </h3>
+        <p class="text-slate-400 text-lg mt-4 max-w-2xl mx-auto">
+          Contenido visual profesional para redes sociales, promociones y eventos.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        {[
+          {
+            name: "Car Meet",
+            video: "/videos/Video Car Meet.mp4",
+            desc: "Highlight de evento automotriz con edición dinámica y transiciones fluidas.",
+            tags: ["Edición", "Color Grading", "Motion Graphics"],
+            accent: "#f59e0b",
+          },
+          {
+            name: "Motivación",
+            video: "/videos/Video Motivacion.mp4",
+            desc: "Contenido motivacional con narrativa visual impactante y sincronización musical.",
+            tags: ["Storytelling", "Audio Sync", "Effects"],
+            accent: "#8b5cf6",
+          },
+        ].map((project, i) => (
+          <div
+            class="project-card card-lift gradient-border rounded-2xl overflow-hidden transition-all"
+            data-aos="fade-up"
+            data-aos-delay={i * 120}
+          >
+            <div class="video-container relative overflow-hidden" style={`background:linear-gradient(135deg, ${project.accent}22, transparent)`}>
+              <div class="absolute inset-0 bg-grid opacity-30 pointer-events-none"></div>
+              <video
+                src={project.video}
+                class="w-full h-full object-cover relative z-10"
+                controls
+                preload="metadata"
+                data-video-orientation
+              />
+              <div class="project-shine absolute inset-0 pointer-events-none"></div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-3">
+                <h4 class="text-xl font-bold text-white">{project.name}</h4>
+              </div>
+              <p class="text-slate-400 text-sm leading-relaxed mb-4">{project.desc}</p>
+              <div class="flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <span class="px-2.5 py-1 text-xs rounded-md glass text-slate-300 border border-blue-500/10">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   </div>
 </section>
 
@@ -87,4 +147,35 @@
   .project-card:hover .project-shine {
     transform: translateX(100%);
   }
+  .video-container {
+    height: 400px;
+  }
+  .video-container.horizontal {
+    height: 224px;
+  }
 </style>
+
+<script>
+  // Detect video orientation and adjust container height
+  const videos = document.querySelectorAll<HTMLVideoElement>('video[data-video-orientation]');
+  videos.forEach((video) => {
+    const checkOrientation = () => {
+      const container = video.closest('.video-container');
+      if (container && video.videoWidth > 0 && video.videoHeight > 0) {
+        const isHorizontal = video.videoWidth > video.videoHeight;
+        if (isHorizontal) {
+          container.classList.add('horizontal');
+        } else {
+          container.classList.remove('horizontal');
+        }
+      }
+    };
+
+    // Check if metadata is already loaded
+    if (video.readyState >= 1) {
+      checkOrientation();
+    } else {
+      video.addEventListener('loadedmetadata', checkOrientation);
+    }
+  });
+</script>
