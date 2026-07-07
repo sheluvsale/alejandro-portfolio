@@ -31,6 +31,46 @@
           tags: ["PHP", "HTML", "CSS", "JavaScript"],
           accent: "#22d3ee",
         },
+        {
+          name: "Holguín Tours",
+          url: "https://holguintours.vercel.app/",
+          domain: "holguintours.vercel.app",
+          desc: "Sitio turístico para descubrir destinos, experiencias y servicios en la región de Holguín.",
+          tags: ["Astro"],
+          accent: "#0ea5e9",
+        },
+        {
+          name: "Proconserh",
+          url: "https://proconserh.vercel.app/",
+          domain: "proconserh.vercel.app",
+          desc: "Página corporativa con presencia profesional, diseño moderno y navegación clara.",
+          tags: ["Astro"],
+          accent: "#14b8a6",
+        },
+        {
+          name: "Blue Motors",
+          url: "https://blue-motors-plum.vercel.app/",
+          domain: "blue-motors-plum.vercel.app",
+          desc: "Landing page para concesionario de vehículos con estilo dinámico y atractivo.",
+          tags: ["Astro"],
+          accent: "#6366f1",
+        },
+        {
+          name: "Summa Soft",
+          url: "https://summa-soft.vercel.app/",
+          domain: "summa-soft.vercel.app",
+          desc: "Sitio web de empresa de software con enfoque en soluciones digitales e innovación.",
+          tags: ["Astro"],
+          accent: "#8b5cf6",
+        },
+        {
+          name: "Agrocopey",
+          url: "https://agrocopey.vercel.app/",
+          domain: "agrocopey.vercel.app",
+          desc: "Plataforma agrícola con información y servicios para el sector productivo.",
+          tags: ["Astro"],
+          accent: "#22c55e",
+        },
       ].map((project, i) => (
         <a
           href={project.url}
@@ -86,64 +126,45 @@
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        {[
-          {
-            name: "Car Meet",
-            video: "/videos/Video Car Meet.mp4",
-            desc: "Highlight de evento automotriz con edición dinámica y transiciones fluidas.",
-            tags: ["Edición", "Color Grading", "Motion Graphics"],
-            accent: "#f59e0b",
-          },
-          {
-            name: "Motivación",
-            video: "/videos/Video Motivacion.mp4",
-            desc: "Contenido motivacional con narrativa visual impactante y sincronización musical.",
-            tags: ["Storytelling", "Audio Sync", "Effects"],
-            accent: "#8b5cf6",
-          },
-          {
-            name: "Buscando de Dios",
-            video: "/videos/0624.mp4",
-            desc: "Producción visual versátil con ritmo y estilo para impactar en redes sociales.",
-            tags: ["Edición", "Motion Graphics", "Color Grading"],
-            accent: "#ec4899",
-          },
-        ].map((project, i) => (
-          <div
-            class="project-card card-lift gradient-border rounded-2xl overflow-hidden transition-all"
-            data-aos="fade-up"
-            data-aos-delay={i * 120}
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <figure class="reel">
+          <blockquote
+            class="instagram-media"
+            data-instgrm-captioned
+            data-instgrm-permalink="https://www.instagram.com/reel/DZTtTcOtbTZ/?utm_source=ig_embed&utm_campaign=loading"
+            data-instgrm-version="14"
+            style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px auto; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"
           >
-            <div class="video-container relative overflow-hidden" style={`background:linear-gradient(135deg, ${project.accent}22, transparent)`}>
-              <div class="absolute inset-0 bg-grid opacity-30 pointer-events-none"></div>
-              <video
-                src={project.video}
-                class="w-full h-full object-cover relative z-10"
-                controls
-                preload="metadata"
-                data-video-orientation
-                playsinline
-              />
-              <div class="project-shine absolute inset-0 pointer-events-none"></div>
-            </div>
-            <div class="p-6">
-              <div class="flex items-center justify-between mb-3">
-                <h4 class="text-xl font-bold text-white">{project.name}</h4>
-              </div>
-              <p class="text-slate-400 text-sm leading-relaxed mb-4">{project.desc}</p>
-              <div class="flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <span class="px-2.5 py-1 text-xs rounded-md glass text-slate-300 border border-blue-500/10">{tag}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
+          </blockquote>
+        </figure>
+
+        <figure class="reel">
+          <blockquote
+            class="instagram-media"
+            data-instgrm-captioned
+            data-instgrm-permalink="https://www.instagram.com/reel/DZWCAgguTm4/?utm_source=ig_embed&utm_campaign=loading"
+            data-instgrm-version="14"
+            style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px auto; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"
+          >
+          </blockquote>
+        </figure>
+
+        <figure class="reel">
+          <blockquote
+            class="instagram-media"
+            data-instgrm-captioned
+            data-instgrm-permalink="https://www.instagram.com/reel/DaDRQKku5ns/?utm_source=ig_embed&utm_campaign=loading"
+            data-instgrm-version="14"
+            style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px auto; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"
+          >
+          </blockquote>
+        </figure>
       </div>
     </div>
   </div>
 </section>
+
+<script async src="//www.instagram.com/embed.js"></script>
 
 <style>
   .project-shine {
@@ -155,40 +176,5 @@
   .project-card:hover .project-shine {
     transform: translateX(100%);
   }
-  .video-container {
-    height: 400px;
-  }
-  .video-container.horizontal {
-    height: 224px;
-  }
-  .video-container.vertical video {
-    object-fit: contain;
-  }
 </style>
 
-<script>
-  // Detect video orientation and adjust container height
-  const videos = document.querySelectorAll<HTMLVideoElement>('video[data-video-orientation]');
-  videos.forEach((video) => {
-    const checkOrientation = () => {
-      const container = video.closest('.video-container');
-      if (container && video.videoWidth > 0 && video.videoHeight > 0) {
-        const isHorizontal = video.videoWidth > video.videoHeight;
-        if (isHorizontal) {
-          container.classList.add('horizontal');
-          container.classList.remove('vertical');
-        } else {
-          container.classList.remove('horizontal');
-          container.classList.add('vertical');
-        }
-      }
-    };
-
-    // Check if metadata is already loaded
-    if (video.readyState >= 1) {
-      checkOrientation();
-    } else {
-      video.addEventListener('loadedmetadata', checkOrientation);
-    }
-  });
-</script>
